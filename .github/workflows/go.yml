@@ -11,6 +11,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
     steps:
 
     - name: Set up Go 1.x
@@ -25,7 +26,9 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+      env:
+        TMPDIR: ${{ github.workspace }}/tmp
+      run: mkdir $TMPDIR; go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
 
     - name: Upload coverage report
       uses: codecov/codecov-action@v4
@@ -39,10 +42,10 @@ jobs:
         mkdir -p test_pdf_files
         
         # Copy any test PDF files to the artifact directory
-        if [ -d "/tmp" ]; then
-          find /tmp -name "Test*.pdf" -exec cp {} test_pdf_files/ \;
+        if [ -d "${{ github.workspace }}/tmp" ]; then
+          find ${{ github.workspace }}/tmp -name "Test*.pdf" -exec cp {} test_pdf_files/ \;
           # Also check for Test files without extension and add .pdf extension
-          for file in /tmp/Test*; do
+          for file in ${{ github.workspace }}/tmp/Test*; do
             if [ -f "$file" ] && [[ "$file" != *.pdf ]]; then
               cp "$file" "test_pdf_files/$(basename "$file").pdf"
             fi
