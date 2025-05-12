@@ -1,6 +1,7 @@
 name: PDF Validation
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Build & Test"]
     types:
