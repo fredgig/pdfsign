@@ -6,6 +6,9 @@ on:
     workflows: ["Build & Test"]
     types:
       - completed
+  pull_request: # Allow testing, remove before merging
+    branches:
+      - '**' 
 
 permissions:
   contents: read
