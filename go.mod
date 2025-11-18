@@ -1,4 +1,4 @@
-module github.com/digitorus/pdfsign
+module github.com/fredgig/pdfsign
 
 go 1.23.0
 

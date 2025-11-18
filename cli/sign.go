@@ -11,7 +11,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/digitorus/pdfsign/sign"
+	"github.com/fredgig/pdfsign/sign"
 )
 
 var (
